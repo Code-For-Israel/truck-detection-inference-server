@@ -2,6 +2,8 @@
 
 ![Traucker](/assets/images/traucker.png "Traucker")
 
+![צימצום פסולת](/assets/images/logo-Oz.png "צימצום פסולת")
+
 Inference server for truck detection ([waste reduction project](https://www.codeforisrael.org/project/%D7%94%D7%A9%D7%9C%D7%9B%D7%AA-%D7%A4%D7%A1%D7%95%D7%9C%D7%AA-%D7%9C%D7%90-%D7%97%D7%95%D7%A7%D7%99%D7%AA-%D7%91%D7%A0%D7%92%D7%91)) at [Code for Israel](https://www.codeforisrael.org/)
 
 ![Truck detection](/assets/images/classes.png "Truck detection")
@@ -35,3 +37,5 @@ Inference server for truck detection ([waste reduction project](https://www.code
 * Scraping and saving a frame: 1 - 14 ms
 * Inferring and saving outputs (images + labels): 180-190 ms
 * Total time: around 200 ms (0.2 seconds).
+
+![Truck detection](/assets/images/output.gif "Truck detection")
