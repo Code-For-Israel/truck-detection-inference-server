@@ -26,13 +26,12 @@ Inference server for truck detection ([waste reduction project](https://www.code
   * Uploading and downloading files from a s3 bucket.
 
 **Automatic scheduler**
- * sends output, in json format, to the backend server every x=0.5 seconds (x can be over 0.2 seconds).
+ * Sends output, in json format, to the backend server every x=0.5 seconds (x can be over 0.2 seconds).
  * Uploads every 5 minutes the log file to s3 bucket.
 
-
-Inference time on local server:
-Scraping and saving a frame: 1 - 14 ms
-Inferring and saving outputs (images + labels): 180-190 ms
-Total time: around 200 ms (0.2 seconds).
+<u>Inference time on local server</u>:
+* Scraping and saving a frame: 1 - 14 ms
+* Inferring and saving outputs (images + labels): 180-190 ms
+* Total time: around 200 ms (0.2 seconds).
 
 ![Truck detection](/assets/images/classes.png "Truck detection")
