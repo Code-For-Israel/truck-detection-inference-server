@@ -46,7 +46,7 @@ class VideoCapture:
         """
         # Check camera url status
         status = status_codes[requests.get(cam['URL']).status_code]
-        print('Access to camera:', status)
+        print('Access to camera ' + cam['ID'] + ': ' + status)
 
         # if status is not OK (Forbidden), initiate access to camera.
         if status != 'OK':
@@ -71,7 +71,8 @@ class VideoCapture:
                 time.sleep(0.1)
                 print('.')
 
-            print('Access to camera:', status_codes[requests.get(cam['URL']).status_code])
+            status = status_codes[requests.get(cam['URL']).status_code]
+            print('Access to camera ' + cam['ID'] + ': ' + status)
 
             driver.close()
 
