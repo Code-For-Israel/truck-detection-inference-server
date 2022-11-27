@@ -1,0 +1,11 @@
+{
+    "CAMERAS":
+    {
+        "TEL_ARAD_CAM":
+        {
+            "ID": "0001",
+            "NAME": "תל ערד",
+            "URL": "https://5e0d15ab12687.streamlock.net/live/TELARAD.stream/chunklist_w1876910744.m3u8"
+        }
+	}
+}
