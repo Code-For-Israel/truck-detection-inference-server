@@ -7,8 +7,8 @@ Inference server for truck detection ([waste reduction project](https://www.code
 **Python Classes**
 * Config - All configuration variables needed for the inference server (Cameras’ urls, AWS credentials, directories names, etc...).
 * VideoCapture - 
-Initiate access to camera - Start the connection to camera (GET 200 response code instead of 403) by using Selenium.
-Read frames - Reading frames from camera, on a thread, by a given frame rate.
+  * Initiate access to camera - Start the connection to camera (GET 200 response code instead of 403) by using Selenium.
+  * Read frames - Reading frames from camera, on a thread, by a given frame rate.
 * Scraper - Saving a frame with image name format (camera’s ID, serial number, date and time) into a local input folder.
 * Model - Using the model’s weights to infer images. Saving output images and labels (of exist) into a local output folder.
 * Files
