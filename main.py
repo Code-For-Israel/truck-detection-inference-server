@@ -171,11 +171,13 @@ def inference(
     curr = time.time()
     logger.info('Fetching data')
     # fetch frame
+    # TODO make sure to scrape all cameras in a different thread
     frame = fetch_data(scraper=scraper)
     if frame is None:
         output = None
     else:
         logger.info('Running model')
+        # TODO change to a batch of camera
         # run the model with the input frame and with the confidence threshold. Saving results in output folder
         output = model.run(source=frame, conf_thres=CONF_THRES, name=subfolder)
 

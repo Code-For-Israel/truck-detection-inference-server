@@ -22,14 +22,15 @@ try:
 
     found_cameras_json_file = True
     print('cameras json file was found')
+
 except:
     # Cameras dictionary
     CAMERAS = {
-        'TEL_ARAD_CAM':
+        "AYALON_HASHALOM_CAM":
             {
-                'ID': '0001',
-                'NAME': 'תל ערד',
-                'URL': 'https://5e0d15ab12687.streamlock.net/live/TELARAD.stream/chunklist_w1876910744.m3u8'
+                "ID": "0006",
+                "NAME": "איילון השלום תל אביב",
+                "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
             }
     }
 
