@@ -15,7 +15,7 @@
    8. Press `Launch instance`
 9. To log in to the instance use: `ssh -i ireland-eu-west-1-waste-reduction-key.pem ubuntu@<instance_public_ip>`
 
-
+# Build docker image
 ```bash
 # Clone git repo
 git clone https://github.com/Code-For-Israel/truck-detection-inference-server.git
@@ -23,8 +23,13 @@ git clone https://github.com/Code-For-Israel/truck-detection-inference-server.gi
 # Build docker image
 cd truck-detection-inference-server/docker
 sudo docker build -t trucks-inference-server-docker-image .
-
-Auto start container on instance’s boot (example):
-docker run --restart=always -p 80:80 myapp
-
 ```
+
+# Export docker image and upload to s3
+
+
+# 
+```bash
+docker run --restart=always -p 80:80 myapp
+```
+

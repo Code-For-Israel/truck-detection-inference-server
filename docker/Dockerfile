@@ -2,11 +2,16 @@ FROM python:3.9
 
 WORKDIR /code
 
+# copy the content of the local directory to the working directory
+COPY requirements.txt .
+
+# install dependencies
 RUN apt-get -y update
-RUN pip install --upgrade pip
+RUN apt-get -y install curl
 RUN apt-get install zip -y
 RUN apt-get install unzip -y
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install chromedriver
 RUN wget -N https://chromedriver.storage.googleapis.com/72.0.3626.69/chromedriver_linux64.zip -P ~/
