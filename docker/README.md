@@ -17,20 +17,14 @@
 
 
 ```bash
+# Clone git repo
 git clone https://github.com/Code-For-Israel/truck-detection-inference-server.git
  
-sudo amazon-linux-extras install docker
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-
-sudo systemctl enable /usr/lib/systemd/system/docker.service
-
-scp -i ireland-eu-west-1-waste-reduction-key.pem -r app ec2-user@ec2-52-18-97-138.eu-west-1.compute.amazonaws.com:/home/ec2-user
-
-cd app
-docker build -t myapp .
+# Build docker image
+cd truck-detection-inference-server/docker
+sudo docker build -t trucks-inference-server-docker-image .
 
 Auto start container on instance’s boot (example):
-$ docker run --restart=always -p 80:80 myapp
+docker run --restart=always -p 80:80 myapp
 
 ```

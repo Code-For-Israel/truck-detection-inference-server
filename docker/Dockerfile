@@ -1,7 +1,6 @@
 FROM python:3.9
 
-WORKDIR /home/ec2-user/srv
-ADD . /home/ec2-user/srv
+WORKDIR /code
 
 RUN apt-get -y update
 RUN pip install --upgrade pip
