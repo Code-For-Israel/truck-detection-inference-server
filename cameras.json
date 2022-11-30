@@ -1,47 +1,24 @@
 {
-    "CAMERAS":
-    {
-        "TEL_ARAD_CAM":
-        {
-            "ID": "0001",
-            "NAME": "תל ערד",
-            "URL": "https://5e0d15ab12687.streamlock.net/live/TELARAD.stream/chunklist_w1876910744.m3u8"
-        },
-        "EVLAIM_CAM":
-        {
-            "ID": "0002",
-            "NAME": "אבליים",
-            "URL": "https://5d8c50e7b358f.streamlock.net/live/EVLAIM.stream/chunklist_w117438879.m3u8"
-        },
-        "SHAAR_HANEGEV_CAM":
-        {
-            "ID": "0003",
-            "NAME": "שער הנגב",
-            "URL": "https://5e0d15ab12687.streamlock.net/live/SHAARHANEGEV.stream/chunklist_w956961233.m3u8"
-        },
-        "TEL_AVIV_BEACH_CAM":
-        {
-            "ID": "0004",
-            "NAME": "חוף גורדון תל אביב",
-            "URL": "https://streamcdnb1-aeba970b293e4ca4b5c2c2ee0fb92bb5.msvdn.net/live/S4071433/C9D98LDLWapC/chunks.m3u8"
-        },
-        "AYALON_ROKACH_KAKAL_CAM":
-        {
-            "ID": "0005",
-            "NAME": "שדרות רוקח קקל תל אביב",
-            "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Rokach-Kakal.stream/chunklist_w227568096.m3u8"
-        },
-        "AYALON_HASHALOM_CAM":
-        {
-            "ID": "0006",
-            "NAME": "איילון השלום תל אביב",
-            "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
-        },
-        "ARLOZOROV_SB_CAM":
-        {
-            "ID": "0007",
-            "NAME": "ארלוזורוב לדרום תל אביב",
-            "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Arlozorov-sb.stream/chunklist_w1222494928.m3u8"
-        }
+  "CAMERAS": {
+    "TEL_AVIV_BEACH_CAM": {
+      "ID": "0004",
+      "NAME": "חוף גורדון תל אביב",
+      "URL": "https://streamcdnb1-aeba970b293e4ca4b5c2c2ee0fb92bb5.msvdn.net/live/S4071433/C9D98LDLWapC/chunks.m3u8"
+    },
+    "AYALON_ROKACH_KAKAL_CAM": {
+      "ID": "0005",
+      "NAME": "שדרות רוקח קקל תל אביב",
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Rokach-Kakal.stream/chunklist_w227568096.m3u8"
+    },
+    "AYALON_HASHALOM_CAM": {
+      "ID": "0006",
+      "NAME": "איילון השלום תל אביב",
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
+    },
+    "ARLOZOROV_SB_CAM": {
+      "ID": "0007",
+      "NAME": "ארלוזורוב לדרום תל אביב",
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Arlozorov-sb.stream/chunklist_w1222494928.m3u8"
     }
+  }
 }
