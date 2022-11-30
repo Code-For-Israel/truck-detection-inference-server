@@ -9,6 +9,7 @@ class Scraper:
     Capturing the frame id which made of the camera's ID, frame serial number, current date and time.
     Saving the frame to a local directory with the frame id .
     """
+
     def __init__(self, cam, max_count):
         """
         :param: cam: the camera's key.
@@ -55,6 +56,3 @@ class Scraper:
         :param: int counter: the counter.
         """
         self.counter = counter
-
-
-

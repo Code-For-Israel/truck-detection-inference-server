@@ -16,7 +16,7 @@ cameras_url = 'https://www.iroads.co.il/%D7%AA%D7%99%D7%A7%D7%99%D7%99%D7%AA-%D7
 status_codes = {200: 'OK', 403: 'Forbidden'}
 
 # Camera's fps:
-FPS = 1/60
+FPS = 1 / 60
 
 
 # bufferless VideoCapture
@@ -25,12 +25,13 @@ class VideoCapture:
     Class VideoCapture.
     Connecting to a camera's url and reading frames constantly on a thread.
     """
+
     def __init__(self, cam):
         """
         :param: cam: the camera's key.
         :return: a VideoCapture instance.
         """
-        self.initiate_access_to_camera(cam)   # Check for camera's accessibility.
+        self.initiate_access_to_camera(cam)  # Check for camera's accessibility.
         self.cap = cv2.VideoCapture(cam['URL'])  # Camera's URL (m3u8).
         self.frame = None
 

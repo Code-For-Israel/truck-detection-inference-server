@@ -188,7 +188,8 @@ def inference(
         # a detection was made
         if not output['detection_results'] == 'no_detections':
             # Replace class number with class name
-            output['detection_results']['classes'] = [CLASS_NAME[str(item)] for item in output['detection_results']['classes']]
+            output['detection_results']['classes'] = [CLASS_NAME[str(item)] for item in
+                                                      output['detection_results']['classes']]
 
             # upload label to bucket if bucket exists
             if bucket_name is not None and UPLOAD_OUTPUT_FOR_EVERY_INFERENCE:

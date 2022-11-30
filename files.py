@@ -10,6 +10,7 @@ class Files:
     Class Files.
     Handling logger file, local files and folders and on AWS S3 bucket.
     """
+
     def __init__(self, file_or_dir='', s3_bucket=None, aws_access_key_id=None, aws_secret_access_key=None):
         """
         :param: file_or_dir: the path and name of the file or the folder.
@@ -99,4 +100,3 @@ class Files:
         """
         self.file = file
         self.s3.upload_file(Filename=self.file, Bucket=self.bucket, Key=self.file)
-
