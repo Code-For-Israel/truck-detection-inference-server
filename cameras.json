@@ -1,5 +1,20 @@
 {
   "CAMERAS": {
+    "TEL_ARAD_CAM": {
+      "ID": "0001",
+      "NAME": "תל ערד",
+      "URL": "https://5e0d15ab12687.streamlock.net/live/TELARAD.stream/chunklist_w1876910744.m3u8"
+    },
+    "EVLAIM_CAM": {
+      "ID": "0002",
+      "NAME": "אבליים",
+      "URL": "https://5d8c50e7b358f.streamlock.net/live/EVLAIM.stream/chunklist_w117438879.m3u8"
+    },
+    "SHAAR_HANEGEV_CAM": {
+      "ID": "0003",
+      "NAME": "שער הנגב",
+      "URL": "https://5e0d15ab12687.streamlock.net/live/SHAARHANEGEV.stream/chunklist_w956961233.m3u8"
+    },
     "TEL_AVIV_BEACH_CAM": {
       "ID": "0004",
       "NAME": "חוף גורדון תל אביב",
@@ -21,4 +36,5 @@
       "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Arlozorov-sb.stream/chunklist_w1222494928.m3u8"
     }
   }
+}
 }

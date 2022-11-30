@@ -44,10 +44,19 @@ sudo docker run -d -it \
     --restart unless-stopped \
     --runtime=nvidia \
     --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest
-# TODO ADD uWSGI
+# TODO YOTAM: ADD uWSGI
 ```
 
 # Run commands inside container
 ```bash
 sudo docker exec -ti trucks-inference-server-docker-container sh
+```
+
+# Example calling the docker
+```bash
+# from the EC2 hosting the docker
+curl -X GET http://localhost:5000/detect_trucks
+
+# from anywhere else
+curl -X GET http://<public_ip_ec2_hosting_docker>:5000/detect_trucks
 ```

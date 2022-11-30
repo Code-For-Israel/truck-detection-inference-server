@@ -64,8 +64,8 @@ for camera in cameras:
 # Setup s3 client
 s3 = Files(s3_bucket=BUCKET, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-# Model instance
-m = Model('best.pt')
+# Model instance - load weights
+yolov5_object_detection_model = Model('best.pt')
 
 # Initialize scheduler
 scheduler = APScheduler()
@@ -93,7 +93,7 @@ if ENABLE_GET_UI_HOMEPAGE:
             logger.info('api-get-index: viewing frame ' + image_id + '.jpg from local data')
         else:
             # infer new frame
-            output = inference(s[cam], m)
+            output = inference(s[cam], yolov5_object_detection_model)
             logger.info('api-get-index: inferring and viewing new frame ' + str(output))
         html = '''
                 <!DOCTYPE html>
@@ -158,14 +158,14 @@ def fetch_data(
 
 def inference(
         scraper=s[default_camera],
-        model=m,
+        model=yolov5_object_detection_model,
         bucket_name=BUCKET,
         subfolder=OUTPUT_FOLDER):
     """
     Fetching input frame and inferring with the model. Saving output data locally.
     :param: model: the model instance.
     :param: bucket_name: the s3 bucket name.
-    :param: subfolder: the folder for the output data to be stored in.
+    :param: sub folder: the folder for the output data to be stored in.
     :return: detection output in dictionary format.
     """
     curr = time.time()
@@ -375,7 +375,7 @@ if ENABLE_GET_DELETE_LOCAL_DATA:
 
 
 def main():
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
 
 
 if __name__ == '__main__':
