@@ -31,7 +31,7 @@ class VideoCapture:
         :param: cam: the camera's key.
         :return: a VideoCapture instance.
         """
-        # self.initiate_access_to_camera(cam)  # Check for camera's accessibility.
+        self.initiate_access_to_camera(cam)  # Check for camera's accessibility.
         self.cap = cv2.VideoCapture(cam['URL'])  # Camera's URL (m3u8).
         self.frame = None
 
