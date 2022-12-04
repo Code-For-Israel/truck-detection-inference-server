@@ -94,7 +94,6 @@ try:
     UPLOAD_OUTPUT_FOR_EVERY_INFERENCE = True if config['UPLOAD_OUTPUT_FOR_EVERY_INFERENCE'] == 'True' else False
     UPLOAD_OUTPUT_ONLY_UPON_DETECTION = True if config['UPLOAD_OUTPUT_ONLY_UPON_DETECTION'] == 'True' else False
     POST_TO_BACKEND = True if config['POST_TO_BACKEND'] == 'True' else False
-    POST_TO_BACKEND_ONLY_UPON_DETECTION = True if config['POST_TO_BACKEND_ONLY_UPON_DETECTION'] == 'True' else False
     ENABLE_GET_SEND_CAMERA_LIST = True if config['ENABLE_GET_SEND_CAMERA_LIST'] == 'True' else False
     ENABLE_GET_SEND_LOCAL_DATA_LIST = True if config['ENABLE_GET_SEND_LOCAL_DATA_LIST'] == 'True' else False
     ENABLE_GET_UPLOAD_LOCAL_DATA_TO_S3 = True if config['ENABLE_GET_UPLOAD_LOCAL_DATA_TO_S3'] == 'True' else False
@@ -150,7 +149,7 @@ except:
     # jitter (int|None) – delay the job execution by jitter seconds at most
 
     # Interval time in seconds between inference to the backend server
-    POST_INFERENCE_INTERVAL_SECONDS = 5
+    POST_INFERENCE_INTERVAL_SECONDS = 0.5
 
     # Enable or disable REST API POST to backend server
     POST_TO_BACKEND = False

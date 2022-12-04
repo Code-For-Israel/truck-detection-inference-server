@@ -117,6 +117,9 @@ class Model:
         # Run inference
         model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
         seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
+
+        image_id_list = list()
+        detection_results_list = list()
         for path, im, im0s, vid_cap, s in dataset:
             with dt[0]:
                 im = torch.from_numpy(im).to(model.device)
@@ -191,9 +194,13 @@ class Model:
                     detection_results = {'classes': classes,
                                          'probabilities': probabilities,
                                          'bboxs_cx_cy_w_h_fractional': bboxs_cx_cy_w_h_fractional}
-                    output_dict = {'image_id': p.name[:-4], 'detection_results': detection_results}
+                    image_id_list.append(p.name[:-4])
+                    detection_results_list.append(detection_results)
+                    # output_dict = {'image_id': p.name[:-4], 'detection_results': detection_results}
                 else:
-                    output_dict = {'image_id': p.name[:-4], 'detection_results': 'no_detections'}
+                    image_id_list.append(p.name[:-4])
+                    detection_results_list.append('no_detections')
+                    # output_dict = {'image_id': p.name[:-4], 'detection_results': 'no_detections'}
 
                 # Stream results
                 im0 = annotator.result()
@@ -237,4 +244,5 @@ class Model:
             strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
 
         # Return output dictionary
+        output_dict = {'image_id': image_id_list, 'detection_results': detection_results_list}
         return output_dict

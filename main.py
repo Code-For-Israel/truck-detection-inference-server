@@ -7,6 +7,7 @@ from flask import Flask, request
 from flask_apscheduler import APScheduler
 
 import json
+from threading import Thread
 import time
 
 # create app
@@ -51,7 +52,7 @@ logger.info('Cameras: ' + str(camera_list))
 default_camera = camera_list[0]
 
 # Read cameras dictionary from json and create scrapers
-s = dict()
+scraper_dict = dict()
 for camera in cameras:
     # Scraper instance
     scr = Scraper(cameras[camera], MAX_SERIAL_NUM)
@@ -59,7 +60,8 @@ for camera in cameras:
     # Continue counter from last serial number
     files = [file for file in os.listdir(INPUT_FOLDER) if file[3:7] == cameras[camera]['ID']]
     scr.reset_counter(len(files))
-    s[camera] = scr
+    # Insert scraper into the scraper dictionary
+    scraper_dict[camera] = scr
 
 # Setup s3 client
 s3 = Files(s3_bucket=BUCKET, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -93,7 +95,7 @@ if ENABLE_GET_UI_HOMEPAGE:
             logger.info('api-get-index: viewing frame ' + image_id + '.jpg from local data')
         else:
             # infer new frame
-            output = inference(s[cam], yolov5_object_detection_model)
+            output = inference(scraper_dict, cam, yolov5_object_detection_model)
             logger.info('api-get-index: inferring and viewing new frame ' + str(output))
         html = '''
                 <!DOCTYPE html>
@@ -109,9 +111,9 @@ if ENABLE_GET_UI_HOMEPAGE:
         if output is not None:
             # show output
             html += '<br><img src="'
-            html += OUTPUT_FOLDER + '/' + output['image_id'] + '.jpg'
+            html += OUTPUT_FOLDER + '/' + output['image_id'][0] + '.jpg'
             html += '" alt="current frame"><br><b>'
-            html += str(output['image_id'])
+            html += str(output['image_id'][0])
         else:
             # No valid output
             html += 'No input data to infer. Please check local data.'
@@ -124,45 +126,34 @@ if ENABLE_GET_UI_HOMEPAGE:
 
 
 def fetch_data(
-        scraper=s[default_camera],
+        scraper=scraper_dict[default_camera],
         bucket=BUCKET,
         subfolder=INPUT_FOLDER):
     """
-    Fetching a frame or a list of frames from a local or remote (s3) input folder and saving locally.
+    Fetching a frame from a camera scraper or from a remote (s3) input folder and saving locally.
     :param: scraper: the scraper instance.
-    :param: bucket_name: the s3 bucket name.
+    :param: bucket: the s3 bucket name.
     :param: subfolder: the folder which the input data is stored.
-    :return: path and name of the frame.
     """
-    frame = None
     # scrape one frame from camera into the local folder
     if scraper is not None:
-        frame = scraper.scrape(subfolder)
+        scraper.scrape(subfolder)
 
     # download last frame from s3 bucket into the local folder
     elif bucket is not None and FETCH_DATA_FROM_S3_BUCKET:
         s3.download_from_s3_to_local(subfolder)
 
-    # fetch last frame from the local folder
-    else:
-        files = [subfolder + '/' + f for f in os.listdir(subfolder)]
-
-        if len(files) == 0:
-            print('There are no files inside', subfolder)
-            return None
-        else:
-            frame = files[-1]
-
-    return frame
-
 
 def inference(
-        scraper=s[default_camera],
+        scraper=scraper_dict,
+        cam_name=None,
         model=yolov5_object_detection_model,
         bucket_name=BUCKET,
         subfolder=OUTPUT_FOLDER):
     """
     Fetching input frame and inferring with the model. Saving output data locally.
+    :param: scraper: the scraper dictionary of camera scrapers.
+    :param: cam_name: the name of the camera for a single inference.
     :param: model: the model instance.
     :param: bucket_name: the s3 bucket name.
     :param: sub folder: the folder for the output data to be stored in.
@@ -170,37 +161,50 @@ def inference(
     """
     curr = time.time()
     logger.info('Fetching data')
-    # fetch frame
-    # TODO make sure to scrape all cameras in a different thread
-    frame = fetch_data(scraper=scraper)
-    if frame is None:
-        output = None
+    if cam_name is not None:
+        fetch_data(scraper_dict[cam_name])
     else:
-        logger.info('Running model')
-        # TODO change to a batch of camera
-        # run the model with the input frame and with the confidence threshold. Saving results in output folder
-        output = model.run(source=frame, conf_thres=CONF_THRES, name=subfolder)
+        # fetch frames from cameras from every thread
+        threads = list()
+        for s in scraper.keys():
+            t = Thread(target=fetch_data, args=(scraper[s], s))
+            threads.append(t)
+            t.start()
+
+        for t in threads:
+            t.join()
+
+    logger.info('Running model')
+    # run the model with the input folder and with the confidence threshold. Saving results in output folder
+    output = model.run(source=INPUT_FOLDER, conf_thres=CONF_THRES, name=subfolder)
+
+    # delete input folder with input frame/s and create a new folder
+    Files(INPUT_FOLDER).delete_folder()
+    Files(INPUT_FOLDER).create_folder()
 
     upload_detected = False if UPLOAD_OUTPUT_ONLY_UPON_DETECTION else True
 
+    print(output)
     # check if output is valid
     if output is not None:
-        # a detection was made
-        if not output['detection_results'] == 'no_detections':
-            # Replace class number with class name
-            output['detection_results']['classes'] = [CLASS_NAME[str(item)] for item in
-                                                      output['detection_results']['classes']]
+        # Check output for every camera
+        for idx, detection in enumerate(output['detection_results']):
+            # check if a detection was made
+            if not detection == 'no_detections':
+                # Replace class number with class name
+                output['detection_results'][idx]['classes'] = [CLASS_NAME[str(item)] for item in
+                                                               output['detection_results'][idx]['classes']]
 
-            # upload label to bucket if bucket exists
-            if bucket_name is not None and UPLOAD_OUTPUT_FOR_EVERY_INFERENCE:
-                s3.upload_to_s3_from_local(subfolder + '/' + 'labels' + '/' + output['image_id'] + '.txt')
+                # upload label to bucket if bucket exists
+                if bucket_name is not None and UPLOAD_OUTPUT_FOR_EVERY_INFERENCE:
+                    s3.upload_to_s3_from_local(subfolder + '/' + 'labels' + '/' + output['image_id'][idx] + '.txt')
 
-            if UPLOAD_OUTPUT_ONLY_UPON_DETECTION:
-                upload_detected = True
+                if UPLOAD_OUTPUT_ONLY_UPON_DETECTION:
+                    upload_detected = True
 
-        # upload image to bucket if bucket exists
-        if bucket_name is not None and UPLOAD_OUTPUT_FOR_EVERY_INFERENCE and upload_detected:
-            s3.upload_to_s3_from_local(subfolder + '/' + output['image_id'] + '.jpg')
+            # upload image to bucket if bucket exists
+            if bucket_name is not None and UPLOAD_OUTPUT_FOR_EVERY_INFERENCE and upload_detected:
+                s3.upload_to_s3_from_local(subfolder + '/' + output['image_id'][idx] + '.jpg')
 
         # print the inference time
         inference_time = str(time.time() - curr)
@@ -226,8 +230,8 @@ if ENABLE_GET_DETECT_TRUCKS:
         if cam not in camera_list:
             return json.dumps('{Invalid camera name}'), 200
 
-        # Scrape and infer for the chosen camera
-        output = inference(scraper=s[cam])
+        # Scrape and infer for all the cameras
+        output = inference(scraper=scraper_dict)
         logger.info('api-get-detect_trucks: ' + str(output))
         return json.dumps(output), 200
 
@@ -238,24 +242,14 @@ if POST_TO_BACKEND:
         """
         REST API POST for an inference.
         """
-        output = inference()
-        # a detection was made
+        output = inference(scraper=scraper_dict)
         if output is not None:
-            if POST_TO_BACKEND_ONLY_UPON_DETECTION:
-                if not output['detection_results'] == 'no_detections':
-                    print('truck detected')
-                    # Send the detection data to the backend server
-                    x = requests.post(BACKEND_URL, json=output)
-                    print(x.text)
+            x = requests.post(BACKEND_URL, json=output)
+            print(x.text)
 
-                    logger.info('api-post: ' + str(output))
-                    print(output)
-            else:
-                x = requests.post(BACKEND_URL, json=output)
-                print(x.text)
+            logger.info('api-post: ' + str(output))
+            print(output)
 
-                logger.info('api-post: ' + str(output))
-                print(output)
 
 if ENABLE_GET_SEND_CAMERA_LIST:
     @app.route("/send_camera_list", methods=["GET"])
