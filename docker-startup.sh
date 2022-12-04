@@ -1,2 +1,3 @@
-python main.py &
-python scheduler.py
+python main.py
+#&
+#python scheduler.py

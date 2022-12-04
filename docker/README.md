@@ -46,6 +46,7 @@ sudo docker run -d -it \
     --runtime=nvidia \
     --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest \
     -c "chmod +x docker-startup.sh && ./docker-startup.sh"
+    
 # TODO YOTAM: ADD uWSGI
 ```
 
