@@ -22,6 +22,9 @@ def call_get_internally_upload_to_s3_and_make_post_request_to_backend():
     pass
 
 
+# for initial start up
+time.sleep(15)
+
 while True:
     # Sleep for some fixed time
     time.sleep(POST_INFERENCE_INTERVAL_SECONDS)
