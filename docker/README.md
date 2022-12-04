@@ -48,14 +48,22 @@ sudo docker run -d -it \
     -c "chmod +x docker-startup.sh && ./docker-startup.sh"
     
 # TODO YOTAM: ADD uWSGI
+
+# TODO Useful docker commands - DELETE
+sudo docker stop trucks-inference-server-docker-container
+sudo docker rm trucks-inference-server-docker-container
+sudo docker logs --tail 100 trucks-inference-server-docker-container 
+
 ```
 
 # Run commands inside container
+
 ```bash
 sudo docker exec -ti trucks-inference-server-docker-container sh
 ```
 
 # Example calling the docker
+
 ```bash
 # from the EC2 hosting the docker
 curl -X GET http://localhost:5000/detect_trucks

@@ -61,7 +61,7 @@ while True:
     ]
     print(absolute_paths_to_images)  # TODO DELETE
     for path in absolute_paths_to_images:
-        s3.upload_to_s3_from_local(path)
+        s3.upload_to_s3_from_local(file=path, key=os.path.basename(path))
 
     # TODO Add the call to the backend and make sure it works smoothly
     # response = requests.post(BACKEND_URL, json=users_data)

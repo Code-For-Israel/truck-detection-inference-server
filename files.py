@@ -93,10 +93,10 @@ class Files:
         self.file = files[-1]
         self.s3.download_file(Filename=subfolder + '/' + self.file, Bucket=self.bucket, Key=self.file)
 
-    def upload_to_s3_from_local(self, file):
+    def upload_to_s3_from_local(self, file, key=None):
         """
         Uploading a file from local folder to s3 bucket.
         :param: file: the path and name of the file.
         """
         self.file = file
-        self.s3.upload_file(Filename=self.file, Bucket=self.bucket, Key=self.file)
+        self.s3.upload_file(Filename=self.file, Bucket=self.bucket, Key=self.file if key is None else key)
