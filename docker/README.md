@@ -37,13 +37,15 @@ sudo aws s3 cp trucks_inference_server_docker_image.tar.gz.tar.gz <some s3 path>
 # Run docker image
 
 ```bash
+cd truck-detection-inference-server
 sudo docker run -d -it \
     --name trucks-inference-server-docker-container \
     --volume $(pwd):/code \
     --net=host \
     --restart unless-stopped \
     --runtime=nvidia \
-    --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest
+    --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest \
+    -c "chmod +x docker-startup.sh && ./docker-startup.sh"
 # TODO YOTAM: ADD uWSGI
 ```
 
