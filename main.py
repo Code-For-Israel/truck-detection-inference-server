@@ -361,7 +361,7 @@ if ENABLE_GET_DELETE_LOCAL_DATA:
 
         time.sleep(0.5)
         for camera in camera_list:
-            s[camera].reset_counter()
+            cameras[camera].reset_counter()
 
         logger.info('Deleted local data')
 
