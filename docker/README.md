@@ -34,7 +34,7 @@ sudo docker save trucks-inference-server-docker-image:latest | gzip > trucks_inf
 sudo aws s3 cp trucks_inference_server_docker_image.tar.gz.tar.gz <some s3 path>
 ```
 
-# Run docker image
+# Run docker image as container
 
 ```bash
 cd truck-detection-inference-server
@@ -46,11 +46,11 @@ sudo docker run -d -it \
     --runtime=nvidia \
     --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest \
     -c "chmod +x docker-startup.sh && ./docker-startup.sh"
-    
 # TODO YOTAM: ADD uWSGI
 
 # TODO Useful docker commands - DELETE
 sudo docker stop trucks-inference-server-docker-container
+sudo docker restart trucks-inference-server-docker-container
 sudo docker rm trucks-inference-server-docker-container
 sudo docker logs --tail 100 trucks-inference-server-docker-container 
 

@@ -59,9 +59,24 @@ while True:
         os.path.join(SCRIPT_DIR, OUTPUT_FOLDER, image_id + '.jpg')
         for image_id in detection_results['image_id']
     ]
-    print(absolute_paths_to_images)  # TODO DELETE
+
+    s3_uris = list()
     for path in absolute_paths_to_images:
         s3.upload_to_s3_from_local(file=path, key=os.path.basename(path))
+        s3_uris.append(f's3://{BUCKET}/{os.path.basename(path)}')
+
+    detection_results = {
+        'object_detection_data': [
+            {
+                'image_id': detection_results['image_id'][i],
+                'detection_results': detection_results['detection_results'][i],
+                's3_uri': s3_uris[i],
+            }
+            for i in range(len(s3_uris))
+        ]
+    }
+
+    print(detection_results)  # TODO DELETE
 
     # TODO Add the call to the backend and make sure it works smoothly
-    # response = requests.post(BACKEND_URL, json=users_data)
+    # response = requests.post(BACKEND_URL, json=detection_results)
