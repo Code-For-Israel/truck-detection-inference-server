@@ -36,6 +36,18 @@ AWS_SECRET_ACCESS_KEY = file['AWS_SECRET_ACCESS_KEY']
 # S3 bucket name. Write here your s3 bucket name
 BUCKET = file['BUCKET']
 
+# Cameras json
+with open(filepath + 'cameras.json', encoding="utf8") as f:
+    file = json.load(f)
+
+# Closing json file
+f.close()
+
+# Number of camera
+cameras = file['CAMERAS']
+
+cameras_id_to_name = {camera_data['ID']: camera_data['NAME'] for camera_data in cameras.values()}
+
 s3 = Files(s3_bucket=BUCKET, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 
@@ -65,18 +77,21 @@ while True:
         s3.upload_to_s3_from_local(file=path, key=os.path.basename(path))
         s3_uris.append(f's3://{BUCKET}/{os.path.basename(path)}')
 
+    cameras_names = list()
+    for image_id in detection_results['image_id']:
+        cameras_names.append(cameras_id_to_name[image_id[3:7]])
+
     detection_results = {
         'object_detection_data': [
             {
                 'image_id': detection_results['image_id'][i],
+                'camera_name': cameras_names[i],
                 'detection_results': detection_results['detection_results'][i],
                 's3_uri': s3_uris[i],
             }
             for i in range(len(s3_uris))
         ]
     }
-
-    print(detection_results)  # TODO DELETE
 
     # TODO Add the call to the backend and make sure it works smoothly
     # response = requests.post(BACKEND_URL, json=detection_results)
