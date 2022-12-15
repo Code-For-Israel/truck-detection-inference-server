@@ -46,14 +46,15 @@ sudo docker run -d -it \
     --runtime=nvidia \
     --entrypoint "/bin/bash" trucks-inference-server-docker-image:latest \
     -c "chmod +x docker-startup.sh && ./docker-startup.sh"
-# TODO YOTAM: ADD uWSGI
+```
 
-# TODO Useful docker commands - DELETE
+# Useful docker commands
+
+```bash
 sudo docker stop trucks-inference-server-docker-container
 sudo docker restart trucks-inference-server-docker-container
 sudo docker rm trucks-inference-server-docker-container
 sudo docker logs --tail 100 trucks-inference-server-docker-container 
-
 ```
 
 # Run commands inside container
