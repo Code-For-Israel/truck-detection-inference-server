@@ -95,3 +95,4 @@ while True:
 
     # TODO Add the call to the backend and make sure it works smoothly
     # response = requests.post(BACKEND_URL, json=json.dumps(detection_results))
+    # print(response)
