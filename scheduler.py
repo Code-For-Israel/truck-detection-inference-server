@@ -50,11 +50,6 @@ cameras_id_to_name = {camera_data['ID']: camera_data['NAME'] for camera_data in 
 
 s3 = Files(s3_bucket=BUCKET, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-
-def call_get_internally_upload_to_s3_and_make_post_request_to_backend():
-    pass
-
-
 # for initial start up
 time.sleep(15)
 
@@ -94,4 +89,4 @@ while True:
     }
 
     # TODO Add the call to the backend and make sure it works smoothly
-    # response = requests.post(BACKEND_URL, json=detection_results)
+    response = requests.post(BACKEND_URL, json=detection_results)

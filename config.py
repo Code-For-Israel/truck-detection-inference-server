@@ -131,7 +131,7 @@ except:
     UPLOAD_OUTPUT_ONLY_UPON_DETECTION = False
 
     # Backend server's url address to send alerts in a json format
-    BACKEND_URL = ''
+    BACKEND_URL = 'http://ip-172-31-38-181.eu-west-1.compute.internal:5000'
 
     # classapscheduler.triggers.interval.IntervalTrigger
     # (weeks=0, days=0, hours=0, minutes=0, seconds=0, start_date=None, end_date=None, timezone=None, jitter=None)
