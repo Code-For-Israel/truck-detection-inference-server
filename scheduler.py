@@ -46,7 +46,10 @@ f.close()
 # Number of camera
 cameras = file['CAMERAS']
 
-cameras_id_to_name = {camera_data['ID']: camera_data['NAME'] for camera_data in cameras.values()}
+# cameras_id_to_name = {camera_data['ID']: camera_data['NAME'] for camera_data in cameras.values()}
+cameras_id_to_name = {cameras[camera_name]['ID']: camera_name[:-4].split('_') for camera_name in cameras.keys()}
+for key, value in cameras_id_to_name.items():
+    cameras_id_to_name[key] = ''.join([word.capitalize() for word in value])
 
 s3 = Files(s3_bucket=BUCKET, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
