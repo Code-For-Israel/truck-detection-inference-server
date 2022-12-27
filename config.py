@@ -30,6 +30,8 @@ except:
             {
                 "ID": "0006",
                 "NAME": "איילון השלום תל אביב",
+                "LATITUDE": "32.072908",
+                "LONGITUDE": "34.793406",
                 "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
             }
     }
