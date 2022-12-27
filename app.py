@@ -79,6 +79,12 @@ scheduler.start()
 
 logger.info('Starting server')
 
+
+@app.route('/validate')
+def validate():
+    return "All good!"
+
+
 if ENABLE_GET_UI_HOMEPAGE:
     @app.route('/')
     def index():
