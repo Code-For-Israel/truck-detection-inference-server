@@ -119,7 +119,7 @@ except:
     FETCH_DATA_FROM_S3_BUCKET = False
 
     # Inference threshold
-    CONF_THRES = 0.25
+    CONF_THRES = 0.5
 
     # Serial max number - 7 digits
     MAX_SERIAL_NUM = 9999999
@@ -151,7 +151,7 @@ except:
     # jitter (int|None) – delay the job execution by jitter seconds at most
 
     # Interval time in seconds between inference to the backend server
-    POST_INFERENCE_INTERVAL_SECONDS = 0.5
+    POST_INFERENCE_INTERVAL_SECONDS = 5
 
     # Enable or disable REST API POST to backend server
     POST_TO_BACKEND = False
