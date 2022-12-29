@@ -134,5 +134,9 @@ while True:
     }
 
     # Post request to backend server
-    response = requests.post(BACKEND_URL, json=json.dumps(detection_results))
+    try:
+        response = requests.post(BACKEND_URL, json=json.dumps(detection_results))
+    except:
+        print(f'Post request failed. Trying again')
+        continue
     print(f'response from backend (sending detection_results): {response}')
