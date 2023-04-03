@@ -30,6 +30,8 @@ except:
             {
                 "ID": "0006",
                 "NAME": "איילון השלום תל אביב",
+                "LATITUDE": "32.072908",
+                "LONGITUDE": "34.793406",
                 "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
             }
     }
@@ -117,7 +119,7 @@ except:
     FETCH_DATA_FROM_S3_BUCKET = False
 
     # Inference threshold
-    CONF_THRES = 0.25
+    CONF_THRES = 0.5
 
     # Serial max number - 7 digits
     MAX_SERIAL_NUM = 9999999
@@ -149,11 +151,11 @@ except:
     # jitter (int|None) – delay the job execution by jitter seconds at most
 
     # Interval time in seconds between inference to the backend server
-    POST_INFERENCE_INTERVAL_SECONDS = 0.5
+    POST_INFERENCE_INTERVAL_SECONDS = 5
 
     # Enable or disable REST API POST to backend server
     POST_TO_BACKEND = False
-    POST_TO_BACKEND_ONLY_UPON_DETECTION = False
+    POST_TO_BACKEND_ONLY_UPON_DETECTION = True
 
     # Enable or disable REST API GET to camera list and local data list
     ENABLE_GET_SEND_CAMERA_LIST = True

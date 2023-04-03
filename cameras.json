@@ -1,19 +1,39 @@
 {
   "CAMERAS": {
-    "AYALON_ROKACH_KAKAL_CAM": {
+    "GESHER_MOZESS_CAM": {
+      "ID": "0002",
+      "NAME": "מוזס",
+      "LATITUDE": 32.075578,
+      "LONGITUDE": 34.794169,
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Mozes_Gantry.stream/chunklist_w38807628.m3u8"
+    },
+    "WOLFSON_CAM": {
       "ID": "0003",
+      "NAME": "מחלף וולפסון",
+      "LATITUDE": 32.036737,
+      "LONGITUDE": 34.759328,
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Wolfson-Interchange.stream/chunklist_w679304650.m3u8"
+    },
+    "AYALON_ROKACH_KAKAL_CAM": {
+      "ID": "0004",
       "NAME": "שדרות רוקח קקל תל אביב",
-      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Rokach-Kakal.stream/chunklist_w227568096.m3u8"
+      "LATITUDE": 32.114938,
+      "LONGITUDE": 34.811028,
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Rokach-Kakal.stream/chunklist_w157102062.m3u8"
     },
     "AYALON_HASHALOM_CAM": {
-      "ID": "0004",
+      "ID": "0005",
       "NAME": "איילון השלום תל אביב",
-      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w2135066546.m3u8"
+      "LATITUDE": 32.072908,
+      "LONGITUDE": 34.793406,
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/HaShalom.stream/chunklist_w1820190009.m3u8"
     },
     "ARLOZOROV_SB_CAM": {
-      "ID": "0005",
+      "ID": "0006",
       "NAME": "ארלוזורוב לדרום תל אביב",
-      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Arlozorov-sb.stream/chunklist_w1222494928.m3u8"
+      "LATITUDE": 32.084137,
+      "LONGITUDE": 34.797807,
+      "URL": "https://5e0da72d486c5.streamlock.net:8443/ayalon/Arlozorov-sb.stream/chunklist_w1129173131.m3u8"
     }
   }
 }

@@ -31,7 +31,7 @@ class Scraper:
         """
         image = self.vidcap.read()
 
-        current_time = datetime.datetime.now()
+        current_time = datetime.datetime.now(datetime.timezone.utc)
         day = str(current_time.day) if len(str(current_time.day)) == 2 else '0' + str(current_time.day)
         month = str(current_time.month) if len(str(current_time.month)) == 2 else '0' + str(current_time.month)
         year = str(current_time.year)
